@@ -7,13 +7,40 @@
 //
 
 #import "TTLQiuShiViewController.h"
+#import "Constant.h"
 
 @interface TTLQiuShiViewController ()
+
+
+@property (nonatomic, strong) UIScrollView *mainScroll;
+
+@property (nonatomic, strong) UISegmentedControl *segment;
 
 @end
 
 @implementation TTLQiuShiViewController
 
+
+#pragma mark - lazyLoad
+
+- (UIScrollView *)mainScroll {
+    if (_mainScroll == nil) {
+        _mainScroll = [[UIScrollView alloc]init];
+    }
+    return _mainScroll;
+}
+
+- (UISegmentedControl *)segment {
+    if (_segment == nil) {
+        _segment = [[UISegmentedControl alloc]initWithItems:@[@"专享",@"视频",@"段子",@"糗图",@"精华",@"最新"]];
+        _segment.frame = CGRectMake(0, 64, tScreenWidth, 44);
+        _segment.backgroundColor = [UIColor lightGrayColor];
+        _segment.tintColor = [UIColor clearColor];
+        [_segment setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:UIControlStateNormal];
+        [_segment setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:UIControlStateSelected];
+    }
+    return _segment;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
@@ -24,9 +51,12 @@
     return self;
     
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.view addSubview:self.segment];
 }
 
 - (void)didReceiveMemoryWarning {
